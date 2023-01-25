@@ -1161,7 +1161,8 @@
 							</div><!-- /Alert Mandatory -->
 
 
-							<form action="php/contact.php" method="post" enctype="multipart/form-data">
+							<!-- <form action="php/contact.php" method="post" enctype="multipart/form-data"> -->
+								<form action="javascript:alert('Message has been sent!');" method="post" enctype="multipart/form-data">
 								<fieldset>
 									<input type="hidden" name="action" value="contact_send" />
 
@@ -1180,9 +1181,13 @@
 											</div>
 									</div>
 									<div class="row">
-											<div class="col-md-8">
-												<label for="contact:subject">Subject *</label>
-												<input required type="text" value="" class="form-control" name="contact[subject][required]" id="contact:subject">
+											<div class="col-md-4">
+												<label for="contact:subject">Company Name *</label>
+												<input required type="text" value="" class="form-control" name="contact[company][required]" id="contact:company">
+											</div>
+											<div class="col-md-4">
+												<label for="contact:subject">Project Description *</label>
+												<input required type="text" value="" class="form-control" name="contact[project][required]" id="contact:project">
 											</div>
 											<div class="col-md-4">
 												<label for="contact_department">Department</label>
@@ -1224,9 +1229,9 @@
 						<!-- /FORM -->
 
 						<!-- INFO -->
-						<div class="col-md-4 col-sm-4">
+						<!-- <div class="col-md-4 col-sm-4">
 
-							<h2>Visit Us</h2>
+							<h2>Visit Us</h2> -->
 
 							<!-- 
 							Available heights
@@ -1242,7 +1247,7 @@
 								h-550
 								h-600
 							-->
-							<div id="map2" class="h-400 grayscale"></div>
+							<!-- <div id="map2" class="h-400 grayscale"></div>
 
 							<hr />
 
@@ -1252,7 +1257,7 @@
 								<span class="block"><strong><i class="fa fa-envelope"></i> Email:</strong> <a href="mailto:mail@yourdomain.com">mail@yourdomain.com</a></span>
 							</p>
 
-						</div>
+						</div> -->
 						<!-- /INFO -->
 
 					</div>
