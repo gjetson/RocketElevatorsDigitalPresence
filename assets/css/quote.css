@@ -1,3 +1,7 @@
 .row {
-    height: 700px;
+    height: 900px;
+}
+
+textarea {
+    min-width: 100%;
 }

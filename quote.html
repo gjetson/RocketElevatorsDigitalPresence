@@ -31,7 +31,6 @@
     <link href="assets/css/color_scheme/blue.css" rel="stylesheet" type="text/css" id="color_scheme" />
 
     <link rel="stylesheet" href="assets/css/quote.css" type="text/css">
-    <script src="./assets/js/quote.js"></script>
 
 </head>
 
@@ -57,82 +56,92 @@
                     <form role="form">
                         <div class="form-group">
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="radioGrp1" id="radioBtn1"
+                                <input class="form-check-input" type="radio" name="radioGrp1" id="res_btn"
                                     value="option1">
-                                <label class="form-check-label" for="radioBtn1">Residential</label>
+                                <label class="form-check-label" for="res_btn">Residential</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="radioGrp1" id="radioBtn2"
+                                <input class="form-check-input" type="radio" name="radioGrp1" id="comm_btn"
                                     value="option2">
-                                <label class="form-check-label" for="radioBtn2">Commercial</label>
+                                <label class="form-check-label" for="comm_btn">Commercial</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="radioGrp1" id="radioBtn3"
+                                <input class="form-check-input" type="radio" name="radioGrp1" id="ind_btn"
                                     value="option3">
-                                <label class="form-check-label" for="radioBtn3">Industrial</label>
+                                <label class="form-check-label" for="ind_btn">Industrial</label>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="input1">
-                                placeholder
+                        <div class="form-group" id="num_apts_in_grp">
+                            <label for="num_apts_in">
+                                Number of Apartments
                             </label>
-                            <input type="text" class="form-control" id="input1">
+                            <input type="text" class="form-control" id="num_apts_in">
                         </div>
-                        <div class="form-group">
-                            <label for="input2">
-                                placeholder
+                        <div class="form-group" id="num_flrs_in_grp">
+                            <label for="num_flrs_in">
+                                Number of Floors
                             </label>
-                            <input type="text" class="form-control" id="input2">
+                            <input type="text" class="form-control" id="num_flrs_in">
+                        </div>
+                        <div class="form-group" id="num_vtrs_in_grp">
+                            <label for="num_vtrs_in">
+                                Number of Elevators
+                            </label>
+                            <input type="text" class="form-control" id="num_vtrs_in">
+                        </div>
+                        <div class="form-group" id="max_occ_in_grp">
+                            <label for=" max_occ_in">
+                                Maximum Occupancy
+                            </label>
+                            <input type="text" class="form-control" id="max_occ_in">
                         </div>
                         <div class="form-group">
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="radioGrp2" id="radioBtn4"
+                                <input class="form-check-input" type="radio" name="radioGrp2" id="stan_btn"
                                     value="option1">
-                                <label class="form-check-label" for="radioBtn4">Standard</label>
+                                <label class="form-check-label" for="stan_btn">Standard</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="radioGrp2" id="radioBtn5"
+                                <input class="form-check-input" type="radio" name="radioGrp2" id="prem_btn"
                                     value="option2">
-                                <label class="form-check-label" for="radioBtn5">Unleaded</label>
+                                <label class="form-check-label" for="prem_btn">Premium</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="radioGrp2" id="radioBtn6"
+                                <input class="form-check-input" type="radio" name="radioGrp2" id="exce_btn"
                                     value="option3">
-                                <label class="form-check-label" for="radioBtn6">Super Unleaded</label>
+                                <label class="form-check-label" for="exce_btn">Excelium</label>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="input3">
+                        <div class="form-group" id="num_apts_out_grp">
+                            <label for="num_apts_out">
                                 placeholder
                             </label>
-                            <input type="text" class="form-control" id="input3">
+                            <textarea name="" id="num_apts_out" rows="1"></textarea>
                         </div>
-                        <div class="form-group">
-                            <label for="input4">
+                        <div class="form-group" id="num_flrs_out_grp">
+                            <label for="num_flrs_out">
                                 placeholder
                             </label>
-                            <input type="text" class="form-control" id="input4">
+                            <textarea name="" id="num_flrs_out" rows="1"></textarea>
                         </div>
-                        <div class="form-group">
-                            <label for="input5">
+                        <div class="form-group" id="num_vtrs_out_grp">
+                            <label for="num_vtrs_out">
                                 placeholder
                             </label>
-                            <input type="text" class="form-control" id="input5">
+                            <textarea name="" id="num_vtrs_out" rows="1"></textarea>
                         </div>
-                        <div class="form-group">
-
-                            <label for="input6">
+                        <div class="form-group" id="max_occ_out_grp">
+                            <label for="max_occ_out">
                                 placeholder
                             </label>
-                            <input type="text" class="form-control" id="input6">
+                            <textarea name="" id="max_occ_out" rows="1"></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary">
                             Submit
                         </button>
                     </form>
                 </div>
-                <div class="col-md-4">
-                </div>
+                <div class="col-md-4"></div>
             </div>
             <br>
             <br>
@@ -146,6 +155,9 @@
             onload="this.before((this.contentDocument.body||this.contentDocument).children[0]);this.remove()"></iframe>
 
     </div>
+
+    <script src="./assets/js/quote.js"></script>
+
 </body>
 
 </html>
