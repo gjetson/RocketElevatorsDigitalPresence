@@ -1,3 +1,9 @@
+const STND_PRICE = 8000
+const PREM_PRICE = 12000
+const EXCEL_PRICE = 15000
+const STND_FEE = 10
+const PREM_FEE = 15
+const EXCEL_FEE = 20
 
 //input groups
 const numAptsInGrp = document.getElementById('num_apts_in_grp')
@@ -26,26 +32,52 @@ const totalCostOut = document.getElementById("total_cost_out")
 //radio buttons out grp
 const radioBtnOut = document.getElementById('radio_btns_out')
 
+//radio buttons out
+const stanBtn = document.getElementById('stan_btn')
+const premBtn = document.getElementById('prem_btn')
+const excelBtn = document.getElementById('excel_btn')
+
 clearInputFields()
 setInputVisibility('none', 'none', 'none', 'none')
 setOutputVisibility('none', 'none', 'none', 'none', 'none')
 
 document.getElementById('res_btn').addEventListener('click', () => {
     clearInputFields()
+    clearPricingBtns()
     setInputVisibility('block', 'block', 'none', 'none')
     setOutputVisibility('none', 'none', 'none', 'none', 'none')
 })
 
 document.getElementById('comm_btn').addEventListener('click', () => {
     clearInputFields()
+    clearPricingBtns()
     setInputVisibility('none', 'block', 'none', 'block')
     setOutputVisibility('none', 'none', 'none', 'none', 'none')
 })
 
 document.getElementById('ind_btn').addEventListener('click', () => {
     clearInputFields()
+    clearPricingBtns()
     setInputVisibility('none', 'none', 'block', 'none')
     setOutputVisibility('none', 'none', 'none', 'none', 'none')
+})
+
+stanBtn.addEventListener('click', () => {
+    clearOutputFields()
+    calculateStandardCost()
+    setOutputVisibility('block', 'block', 'block', 'block', 'block')
+})
+
+premBtn.addEventListener('click', () => {
+    clearOutputFields()
+    calculatePremiumCost()
+    setOutputVisibility('block', 'block', 'block', 'block', 'block')
+})
+
+excelBtn.addEventListener('click', () => {
+    clearOutputFields()
+    calculateExceliumCost()
+    setOutputVisibility('block', 'block', 'block', 'block', 'block')
 })
 
 numVtrsIn.addEventListener('input', () => {
@@ -55,9 +87,11 @@ numVtrsIn.addEventListener('input', () => {
 
 numFlrsIn.addEventListener('input', () => {
     if (numAptsIn.value != '') {
-        // residential mode
         numVtrsOut.value = calculateResidential(numAptsIn.value, numFlrsIn.value)
         console.log(`${numAptsIn.value} ${numFlrsIn.value}`)
+        setOutputVisibility('block', 'block', 'none', 'none', 'none')
+    } else if (maxOccIn.value != '') {
+        numVtrsOut.value = calculateCommercial(maxOccIn.value, numFlrsIn.value)
         setOutputVisibility('block', 'block', 'none', 'none', 'none')
     }
     console.log(`${numAptsIn.value} ${numFlrsIn.value}`)
@@ -66,6 +100,15 @@ numFlrsIn.addEventListener('input', () => {
 numAptsIn.addEventListener('input', () => {
     if (numFlrsIn.value != '') {
         numVtrsOut.value = calculateResidential(numAptsIn.value, numFlrsIn.value)
+        console.log(`${numAptsIn.value} ${numFlrsIn.value}`)
+        setOutputVisibility('block', 'block', 'none', 'none', 'none')
+    }
+    console.log(`${numAptsIn.value} ${numFlrsIn.value}`)
+})
+
+maxOccIn.addEventListener('input', () => {
+    if (numFlrsIn.value != '') {
+        numVtrsOut.value = calculateCommercial(maxOccIn.value, numFlrsIn.value)
         console.log(`${numAptsIn.value} ${numFlrsIn.value}`)
         setOutputVisibility('block', 'block', 'none', 'none', 'none')
     }
@@ -85,6 +128,30 @@ function setOutputVisibility(radios, vators, pricePerVtr, fees, cost) {
     pricePerVtrOutGrp.style.display = pricePerVtr
     installFeesOutGrp.style.display = fees
     totalCostOutGrp.style.display = cost
+}
+
+function calculateStandardCost() {
+    const price = STND_PRICE * Number(numVtrsOut.value)
+    const fee = price * (STND_FEE / 100)
+    populatePricing(STND_PRICE, fee)
+}
+
+function calculatePremiumCost() {
+    const price = PREM_PRICE * Number(numVtrsOut.value)
+    const fee = price * (PREM_FEE / 100)
+    populatePricing(PREM_PRICE, fee)
+}
+
+function calculateExceliumCost() {
+    const price = EXCEL_PRICE * Number(numVtrsOut.value)
+    const fee = price * (EXCEL_FEE / 100)
+    populatePricing(EXCEL_PRICE, fee)
+}
+
+function populatePricing(price, fee) {
+    pricePerVtrOut.value = price
+    installFeesOut.value = fee
+    totalCostOut.value = price + fee
 }
 
 function calculateCommercial(maxOccupancyPerFloor, numFloors) {
@@ -107,4 +174,16 @@ function clearInputFields() {
     numFlrsIn.value = ''
     numVtrsIn.value = ''
     maxOccIn.value = ''
+}
+
+function clearOutputFields() {
+    price_per_vtr_out.value = ''
+    install_fees_out.value = ''
+    total_cost_out.value = ''
+}
+
+function clearPricingBtns() {
+    stanBtn.checked = false
+    premBtn.checked = false
+    excelBtn.checked = false
 }
