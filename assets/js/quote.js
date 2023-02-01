@@ -1,9 +1,18 @@
 const STND_PRICE = 8000
 const PREM_PRICE = 12000
 const EXCEL_PRICE = 15000
-const STND_FEE = 10
-const PREM_FEE = 15
-const EXCEL_FEE = 20
+const STND_FEE = .1
+const PREM_FEE = .15
+const EXCEL_FEE = .2
+
+const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+
+    // These options are needed to round to whole numbers if that's what you want.
+    //minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
+    //maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
+});
 
 //input groups
 const numAptsInGrp = document.getElementById('num_apts_in_grp')
@@ -94,7 +103,6 @@ numFlrsIn.addEventListener('input', () => {
         numVtrsOut.value = calculateCommercial(maxOccIn.value, numFlrsIn.value)
         setOutputVisibility('block', 'block', 'none', 'none', 'none')
     }
-    console.log(`${numAptsIn.value} ${numFlrsIn.value}`)
 })
 
 numAptsIn.addEventListener('input', () => {
@@ -103,7 +111,6 @@ numAptsIn.addEventListener('input', () => {
         console.log(`${numAptsIn.value} ${numFlrsIn.value}`)
         setOutputVisibility('block', 'block', 'none', 'none', 'none')
     }
-    console.log(`${numAptsIn.value} ${numFlrsIn.value}`)
 })
 
 maxOccIn.addEventListener('input', () => {
@@ -112,7 +119,6 @@ maxOccIn.addEventListener('input', () => {
         console.log(`${numAptsIn.value} ${numFlrsIn.value}`)
         setOutputVisibility('block', 'block', 'none', 'none', 'none')
     }
-    console.log(`${numAptsIn.value} ${numFlrsIn.value}`)
 })
 
 function setInputVisibility(apts, floors, vators, occ) {
@@ -132,26 +138,27 @@ function setOutputVisibility(radios, vators, pricePerVtr, fees, cost) {
 
 function calculateStandardCost() {
     const price = STND_PRICE * Number(numVtrsOut.value)
-    const fee = price * (STND_FEE / 100)
-    populatePricing(STND_PRICE, fee)
+    const fee = price * STND_FEE
+    populatePricing(price, fee)
 }
 
 function calculatePremiumCost() {
     const price = PREM_PRICE * Number(numVtrsOut.value)
-    const fee = price * (PREM_FEE / 100)
-    populatePricing(PREM_PRICE, fee)
+    const fee = price * PREM_FEE
+    populatePricing(price, fee)
 }
 
 function calculateExceliumCost() {
     const price = EXCEL_PRICE * Number(numVtrsOut.value)
-    const fee = price * (EXCEL_FEE / 100)
-    populatePricing(EXCEL_PRICE, fee)
+    const fee = price * EXCEL_FEE
+    populatePricing(price, fee)
 }
 
 function populatePricing(price, fee) {
-    pricePerVtrOut.value = price
-    installFeesOut.value = fee
-    totalCostOut.value = price + fee
+    // console.log(formatter.format(2500)); /* $2,500.00 */
+    pricePerVtrOut.value = formatter.format(price)
+    installFeesOut.value = formatter.format(fee)
+    totalCostOut.value = formatter.format(price + fee)
 }
 
 function calculateCommercial(maxOccupancyPerFloor, numFloors) {
