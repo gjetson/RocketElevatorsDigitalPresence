@@ -12,20 +12,12 @@ const USE_PCNT = false
 const currFormatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
-
-    // These options are needed to round to whole numbers if that's what you want.
-    //minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
-    //maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
 });
 
 const pcntFormatter = new Intl.NumberFormat('en-US', {
     style: 'percent',
     minimumFractionDigits: 1,
     maximumFractionDigits: 2
-
-    // These options are needed to round to whole numbers if that's what you want.
-    //minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
-    //maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
 });
 
 //input groups
@@ -153,24 +145,23 @@ function setOutputVisibility(radios, vators, pricePerVtr, fees, cost) {
 function calculateStandardCost() {
     const price = STND_PRICE * Number(numVtrsOut.value)
     const fee = price * STND_FEE
-    populatePricing(price, fee, STND_FEE)
+    populatePricing(price, STND_PRICE, fee, STND_FEE)
 }
 
 function calculatePremiumCost() {
     const price = PREM_PRICE * Number(numVtrsOut.value)
     const fee = price * PREM_FEE
-    populatePricing(price, fee, PREM_FEE)
+    populatePricing(price, PREM_PRICE, fee, PREM_FEE)
 }
 
 function calculateExceliumCost() {
     const price = EXCEL_PRICE * Number(numVtrsOut.value)
     const fee = price * EXCEL_FEE
-    populatePricing(price, fee, EXCEL_FEE)
+    populatePricing(price, EXCEL_PRICE, fee, EXCEL_FEE)
 }
 
-function populatePricing(price, fee, feePcnt) {
-    // console.log(formatter.format(2500)); /* $2,500.00 */
-    pricePerVtrOut.value = currFormatter.format(price)
+function populatePricing(price, pricePerVtr, fee, feePcnt) {
+    pricePerVtrOut.value = currFormatter.format(pricePerVtr)
     if (USE_PCNT) {
         installFeesOut.value = pcntFormatter.format(feePcnt)
     } else {
