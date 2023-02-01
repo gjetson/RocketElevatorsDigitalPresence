@@ -5,9 +5,23 @@ const STND_FEE = .1
 const PREM_FEE = .15
 const EXCEL_FEE = .2
 
-const formatter = new Intl.NumberFormat('en-US', {
+// compile time switch: TRUE = percentage format for installation fees output box
+//                      FALSE = currency format for installation fees output box
+const USE_PCNT = false
+
+const currFormatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
+
+    // These options are needed to round to whole numbers if that's what you want.
+    //minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
+    //maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
+});
+
+const pcntFormatter = new Intl.NumberFormat('en-US', {
+    style: 'percent',
+    minimumFractionDigits: 1,
+    maximumFractionDigits: 2
 
     // These options are needed to round to whole numbers if that's what you want.
     //minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
@@ -139,27 +153,32 @@ function setOutputVisibility(radios, vators, pricePerVtr, fees, cost) {
 function calculateStandardCost() {
     const price = STND_PRICE * Number(numVtrsOut.value)
     const fee = price * STND_FEE
-    populatePricing(price, fee)
+    populatePricing(price, fee, STND_FEE)
 }
 
 function calculatePremiumCost() {
     const price = PREM_PRICE * Number(numVtrsOut.value)
     const fee = price * PREM_FEE
-    populatePricing(price, fee)
+    populatePricing(price, fee, PREM_FEE)
 }
 
 function calculateExceliumCost() {
     const price = EXCEL_PRICE * Number(numVtrsOut.value)
     const fee = price * EXCEL_FEE
-    populatePricing(price, fee)
+    populatePricing(price, fee, EXCEL_FEE)
 }
 
-function populatePricing(price, fee) {
+function populatePricing(price, fee, feePcnt) {
     // console.log(formatter.format(2500)); /* $2,500.00 */
-    pricePerVtrOut.value = formatter.format(price)
-    installFeesOut.value = formatter.format(fee)
-    totalCostOut.value = formatter.format(price + fee)
+    pricePerVtrOut.value = currFormatter.format(price)
+    if (USE_PCNT) {
+        installFeesOut.value = pcntFormatter.format(feePcnt)
+    } else {
+        installFeesOut.value = currFormatter.format(fee)
+    }
+    totalCostOut.value = currFormatter.format(price + fee)
 }
+
 
 function calculateCommercial(maxOccupancyPerFloor, numFloors) {
     const floors = Number(numFloors)
