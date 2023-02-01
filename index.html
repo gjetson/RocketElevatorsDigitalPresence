@@ -88,9 +88,7 @@
 			-->
 		<div id="header" class="navbar-toggleable-md sticky header-md clearfix">
 
-			<!-- HEADER -->
-			<iframe src="./header_rocket.html"
-				onload="this.before((this.contentDocument.body||this.contentDocument).children[0]);this.remove()"></iframe>
+			<header></header>
 
 		</div>
 
@@ -873,39 +871,6 @@
 		</section>
 		<!-- /News -->
 
-		<!-- Overview -->
-		<!-- <section id="overview">
-				<div class="container text-center">
-
-					<div class="row text-left">
-
-						<div class="col-sm-8">
-							<img src="demo_files/images/laptop.png" alt="product image" />
-						</div>
-
-						<div class="col-sm-4">
-							<h3 class="fw-300">Quick <span>Overview</span></h3>
-						
-							<p>Lorem ipsum dolor sit amet, hinc dolores noluisse at vel, ex quod aperiri scaevola has, cum te sanctus denique. Eu liber docendi petentium has, labore.</p>
-							<p>Etiam falli mentitum id mel, ut mel sumo postulant referrentur. At has minim imperdiet, soluta offendit ocurreret sea an. </p>
-							
-							<hr />
-
-							<ul class="list-unstyled list-icons">
-								<li><i class="fa fa-check"></i> Nobis nemore epicuri pro ea</li>
-								<li><i class="fa fa-check"></i> Qui dicunt singulis dissentias an</li>
-								<li><i class="fa fa-check"></i> Ea vis diceret constituam</li>
-								<li><i class="fa fa-check"></i> Mei no autem idque integre, sumo facilis</li>
-								<li><i class="fa fa-check"></i> Est quodsi labitur moderatius an</li>
-							</ul>
-
-						</div>
-					</div>
-
-				</div>
-			</section> -->
-		<!-- /Overview -->
-
 		<!-- Clients -->
 		<section id="clients" class="alternate">
 			<div class="container">
@@ -1185,8 +1150,12 @@
 		<!-- /CONTACT -->
 
 		<!-- FOOTER -->
-		<iframe src="./footer_rocket.html"
-			onload="this.before((this.contentDocument.body||this.contentDocument).children[0]);this.remove()"></iframe>
+		<!-- <iframe src="./footer_rocket.html"
+			onload="this.before((this.contentDocument.body||this.contentDocument).children[0]);this.remove()"></iframe> -->
+
+		<!-- FOOTER -->
+		<footer id="footer"></footer>
+		<!-- /FOOTER -->
 
 
 	</div>
@@ -1250,6 +1219,23 @@
 
 		});
 
+	</script>
+	<script>
+		fetch("./header_rocket.html")
+			.then(response => {
+				return response.text()
+			})
+			.then(data => {
+				document.querySelector("header").innerHTML = data;
+			});
+
+		fetch("./footer_rocket.html")
+			.then(response => {
+				return response.text()
+			})
+			.then(data => {
+				document.querySelector("footer").innerHTML = data;
+			});
 	</script>
 </body>
 

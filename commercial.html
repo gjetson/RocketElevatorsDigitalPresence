@@ -56,7 +56,6 @@
 
 <body class="smoothscroll enable-animation">
 
-
 	<!-- wrapper -->
 	<div id="wrapper">
 
@@ -87,13 +86,8 @@
 				Example Usage:  class="clearfix sticky header-sm transparent b-0"
 			-->
 		<div id="header" class="navbar-toggleable-md sticky clearfix">
-
-			<iframe src="./child_header_rocket.html"
-				onload="this.before((this.contentDocument.body||this.contentDocument).children[0]);this.remove()"></iframe>
-
+			<header></header>
 		</div>
-
-
 
 		<!-- REVOLUTION SLIDER -->
 		<div class="slider fullwidthbanner-container roundedcorners">
@@ -216,8 +210,7 @@
 		<hr class="m-0" /><!-- 1px line separator -->
 
 		<!-- FOOTER -->
-		<iframe src="./footer_rocket.html"
-			onload="this.before((this.contentDocument.body||this.contentDocument).children[0]);this.remove()"></iframe>
+		<footer id="footer"></footer>
 
 	</div>
 	<!-- /wrapper -->
@@ -278,6 +271,23 @@
 
 		});
 
+	</script>
+	<script>
+		fetch("./child_header_rocket.html")
+			.then(response => {
+				return response.text()
+			})
+			.then(data => {
+				document.querySelector("header").innerHTML = data;
+			});
+
+		fetch("./footer_rocket.html")
+			.then(response => {
+				return response.text()
+			})
+			.then(data => {
+				document.querySelector("footer").innerHTML = data;
+			});
 	</script>
 </body>
 
