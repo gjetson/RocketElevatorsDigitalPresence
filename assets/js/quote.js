@@ -7,7 +7,7 @@ const EXCEL_FEE = .2
 
 // compile time switch: TRUE = percentage format for installation fees output box
 //                      FALSE = currency format for installation fees output box
-const USE_PCNT = false
+const USE_PCNT = true
 
 const currFormatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -97,6 +97,7 @@ excelBtn.addEventListener('click', () => {
 
 numVtrsIn.addEventListener('input', () => {
     numVtrsOut.value = numVtrsIn.value
+    clearPricingBtns()
     setOutputVisibility('block', 'block', 'none', 'none', 'none')
 })
 
@@ -104,9 +105,11 @@ numFlrsIn.addEventListener('input', () => {
     if (numAptsIn.value != '') {
         numVtrsOut.value = calculateResidential(numAptsIn.value, numFlrsIn.value)
         console.log(`${numAptsIn.value} ${numFlrsIn.value}`)
+        clearPricingBtns()
         setOutputVisibility('block', 'block', 'none', 'none', 'none')
     } else if (maxOccIn.value != '') {
         numVtrsOut.value = calculateCommercial(maxOccIn.value, numFlrsIn.value)
+        clearPricingBtns()
         setOutputVisibility('block', 'block', 'none', 'none', 'none')
     }
 })
@@ -115,6 +118,7 @@ numAptsIn.addEventListener('input', () => {
     if (numFlrsIn.value != '') {
         numVtrsOut.value = calculateResidential(numAptsIn.value, numFlrsIn.value)
         console.log(`${numAptsIn.value} ${numFlrsIn.value}`)
+        clearPricingBtns()
         setOutputVisibility('block', 'block', 'none', 'none', 'none')
     }
 })
@@ -123,6 +127,7 @@ maxOccIn.addEventListener('input', () => {
     if (numFlrsIn.value != '') {
         numVtrsOut.value = calculateCommercial(maxOccIn.value, numFlrsIn.value)
         console.log(`${numAptsIn.value} ${numFlrsIn.value}`)
+        clearPricingBtns()
         setOutputVisibility('block', 'block', 'none', 'none', 'none')
     }
 })
@@ -163,13 +168,12 @@ function calculateExceliumCost() {
 function populatePricing(price, pricePerVtr, fee, feePcnt) {
     pricePerVtrOut.value = currFormatter.format(pricePerVtr)
     if (USE_PCNT) {
-        installFeesOut.value = pcntFormatter.format(feePcnt)
+        installFeesOut.value = `${pcntFormatter.format(feePcnt)} = ${currFormatter.format(fee)}`
     } else {
         installFeesOut.value = currFormatter.format(fee)
     }
     totalCostOut.value = currFormatter.format(price + fee)
 }
-
 
 function calculateCommercial(maxOccupancyPerFloor, numFloors) {
     const floors = Number(numFloors)
@@ -180,7 +184,11 @@ function calculateCommercial(maxOccupancyPerFloor, numFloors) {
 }
 
 function calculateResidential(numApts, numFloors) {
-    const numElevs = Math.ceil((Number(numApts) / Number(numFloors)) / 6)
+    const flrs = Number(numFloors)
+    let numElevs = 0
+    if (flrs > 0) {
+        numElevs = Math.ceil((Number(numApts) / flrs) / 6)
+    }
     const numElevBanks = Math.ceil(numFloors / 20)
     console.log(numElevBanks * numElevs)
     return numElevBanks * numElevs
