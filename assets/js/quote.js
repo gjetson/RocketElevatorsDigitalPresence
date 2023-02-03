@@ -5,10 +5,6 @@ const STND_FEE = .1
 const PREM_FEE = .15
 const EXCEL_FEE = .2
 
-// compile time switch: TRUE = percentage format for installation fees output box
-//                      FALSE = currency format for installation fees output box
-const USE_PCNT = true
-
 const currFormatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
@@ -167,11 +163,7 @@ function calculateExceliumCost() {
 
 function populatePricing(price, pricePerVtr, fee, feePcnt) {
     pricePerVtrOut.value = currFormatter.format(pricePerVtr)
-    if (USE_PCNT) {
-        installFeesOut.value = `${pcntFormatter.format(feePcnt)} = ${currFormatter.format(fee)}`
-    } else {
-        installFeesOut.value = currFormatter.format(fee)
-    }
+    installFeesOut.value = `${pcntFormatter.format(feePcnt)} = ${currFormatter.format(fee)}`
     totalCostOut.value = currFormatter.format(price + fee)
 }
 
