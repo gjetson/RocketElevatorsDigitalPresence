@@ -169,20 +169,23 @@ function populatePricing(price, pricePerVtr, fee, feePcnt) {
 
 function calculateCommercial(maxOccupancyPerFloor, numFloors) {
     const floors = Number(numFloors)
-    const totalOccupancy = Number(maxOccupancyPerFloor) * floors
-    const numElevsPerBank = (Math.ceil(totalOccupancy / 200)) + 1
-    const numElevBanks = Math.ceil(floors / 10)
-    return numElevBanks * numElevsPerBank
+    if (floors > 1) {
+        const totalOccupancy = Number(maxOccupancyPerFloor) * floors
+        const numElevsPerBank = (Math.ceil(totalOccupancy / 200)) + 1
+        const numElevBanks = Math.ceil(floors / 10)
+        return numElevBanks * numElevsPerBank
+    }
+    return 0
 }
 
 function calculateResidential(numApts, numFloors) {
-    const flrs = Number(numFloors)
+    const floors = Number(numFloors)
     let numElevs = 0
-    if (flrs > 0) {
-        numElevs = Math.ceil((Number(numApts) / flrs) / 6)
+    if (floors > 1) {
+        numElevs = Math.ceil((Number(numApts) / floors) / 6)
     }
     const numElevBanks = Math.ceil(numFloors / 20)
-    console.log(numElevBanks * numElevs)
+    // console.log(numElevBanks * numElevs)
     return numElevBanks * numElevs
 }
 
